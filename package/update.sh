@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+LSOFT_BASE=/opt/linearsoft/toolbag
+. ${LSOFT_BASE}/shared/funcs.sh
+
+LSOFT_TMP_DIR=/tmp/lsoft_toolbag_deploy
+
+#Check for req apps
+if ! hash wget 2>/dev/null; then
+  lsoft_dispErr The wget app is required.
+  exit 1
+fi
+
+if ! hash tar 2>/dev/null; then
+  lsoft_dispErr The tar app is required.
+  exit 1
+fi
+
+#Create tmp dir
+rm -rf ${LSOFT_TMP_DIR} 2>/dev/null
+mkdir ${LSOFT_TMP_DIR}
+if [ ! -d ${LSOFT_TMP_DIR} ]; then
+  lsoft_dispErr Unable to create temporary directory
+fi
+
+wget https://api.github.com/repos/LinearSoft/linux-toolbag/tarball/master ${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz >/dev/null
+if [ $? -ne 0 ]; then
+  lsoft_dispErr Unable to download distribution file
+  exit 2
+fi
+
+tar -xzf ${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz -C ${LSOFT_TMP_DIR}/
+if [ $? -ne 0 ]; then
+  lsoft_dispErr Unable to extract distribution file
+  exit 2
+fi
+
+rm -rf ${LSOFT_BASE}/*
+cp -r ${LSOFT_TMP_DIR}/LinearSoft-linux-toolbag*/* ${LSOFT_BASE}/
+. ${LSOFT_BASE}/postUpdate.sh
