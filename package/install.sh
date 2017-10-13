@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 LSOFT_BASE=/opt/linearsoft/toolbag
-. ${LSOFT_BASE}/shared/funcs.sh
-
 LSOFT_TMP_DIR=/tmp/lsoft_toolbag_deploy
+
+
+lsoft_dispErr () {
+  msg="$@"
+  formated="===ERROR\n${msg}\n==="
+  if [ "$PS1" ]; then
+    echo -e "$formated" 1>&2
+  else
+    echo -e "$formated"
+    echo -e "$formated" 1>&2
+  fi
+}
 
 #Check for req apps
 if ! hash wget 2>/dev/null; then
@@ -15,9 +25,15 @@ if ! hash tar 2>/dev/null; then
   exit 1
 fi
 
+#Create base dir
+mkdir -p ${LSOFT_BASE} 2>/dev/null
+if [ ! -d ${LSOFT_TMP_DIR} ]; then
+  lsoft_dispErr Unable to create deploy directory
+fi
+
 #Create tmp dir
 rm -rf ${LSOFT_TMP_DIR} 2>/dev/null
-mkdir ${LSOFT_TMP_DIR}
+mkdir ${LSOFT_TMP_DIR} 2>/dev/null
 if [ ! -d ${LSOFT_TMP_DIR} ]; then
   lsoft_dispErr Unable to create temporary directory
 fi
