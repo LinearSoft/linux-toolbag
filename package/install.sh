@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 LSOFT_BASE=/opt/linearsoft/toolbag
 LSOFT_TMP_DIR=/tmp/lsoft_toolbag_deploy
-
+LSOFT_DEPLOY_TAR=${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz
 
 lsoft_dispErr () {
   msg="$@"
   formated="===ERROR\n${msg}\n==="
-  if [ "$PS1" ]; then
+  if [[ $- == *i* ]]; then
     echo -e "$formated" 1>&2
   else
     echo -e "$formated"
@@ -27,8 +27,9 @@ fi
 
 #Create base dir
 mkdir -p ${LSOFT_BASE} 2>/dev/null
-if [ ! -d ${LSOFT_TMP_DIR} ]; then
+if [ ! -d ${LSOFT_BASE} ]; then
   lsoft_dispErr Unable to create deploy directory
+  exit 2
 fi
 
 #Create tmp dir
@@ -36,15 +37,16 @@ rm -rf ${LSOFT_TMP_DIR} 2>/dev/null
 mkdir ${LSOFT_TMP_DIR} 2>/dev/null
 if [ ! -d ${LSOFT_TMP_DIR} ]; then
   lsoft_dispErr Unable to create temporary directory
+  exit 2
 fi
 
-wget https://api.github.com/repos/LinearSoft/linux-toolbag/tarball/master ${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz >/dev/null
+wget https://api.github.com/repos/LinearSoft/linux-toolbag/tarball/master -O ${LSOFT_DEPLOY_TAR} >/dev/null
 if [ $? -ne 0 ]; then
   lsoft_dispErr Unable to download distribution file
   exit 2
 fi
 
-tar -xzf ${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz -C ${LSOFT_TMP_DIR}/
+tar -xzf ${LSOFT_DEPLOY_TAR} -C ${LSOFT_TMP_DIR}/
 if [ $? -ne 0 ]; then
   lsoft_dispErr Unable to extract distribution file
   exit 2
@@ -53,4 +55,4 @@ fi
 rm -rf ${LSOFT_BASE}/*
 cp -r ${LSOFT_TMP_DIR}/LinearSoft-linux-toolbag*/* ${LSOFT_BASE}/
 rm -rf ${LSOFT_TMP_DIR}
-. ${LSOFT_BASE}/postUpdate.sh
+. ${LSOFT_BASE}/package/postUpdate.sh
