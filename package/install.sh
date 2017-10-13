@@ -52,4 +52,5 @@ fi
 
 rm -rf ${LSOFT_BASE}/*
 cp -r ${LSOFT_TMP_DIR}/LinearSoft-linux-toolbag*/* ${LSOFT_BASE}/
+rm -rf ${LSOFT_TMP_DIR}
 . ${LSOFT_BASE}/postUpdate.sh
