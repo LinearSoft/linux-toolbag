@@ -51,4 +51,4 @@ if [ "${CURRENT_USER}" = "${LSOFT_ORACLE_USER_GRID}" ] || [ "$EUID" -eq 0 ]; the
   INIT_DB=${LSOFT_ORACLE_DEFAULT_DB_GRID}
 fi
 
-source ${LSOFT_TOOLBAG_BASE}/oracle/bin/chdb.sh ${INIT_DB}
+source ${LSOFT_TOOLBAG_BASE}/oracle/bin/changedb.sh ${INIT_DB}
