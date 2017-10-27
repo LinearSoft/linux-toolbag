@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
-LSOFT_BASE=/opt/linearsoft/toolbag
+LSOFT_ETC_BASE=/etc/linearsoft
+
+LSOFT_TOOLBAG_BASE=/opt/linearsoft/toolbag
+
+if [ -f /etc/linearsoft/toolbag.conf ]; then
+  . /etc/linearsoft/toolbag.conf
+fi
+
+
 LSOFT_TMP_DIR=/tmp/lsoft_toolbag_deploy
 LSOFT_DEPLOY_TAR=${LSOFT_TMP_DIR}/lsoft_toolbag.tar.gz
 
-lsoft_dispErr () {
+inst_dispErr () {
   msg="$@"
   formated="===ERROR\n${msg}\n==="
   if [[ $- == *i* ]]; then
@@ -16,19 +24,26 @@ lsoft_dispErr () {
 
 #Check for req apps
 if ! hash wget 2>/dev/null; then
-  lsoft_dispErr The wget app is required.
+  inst_dispErr The wget app is required.
   exit 1
 fi
 
 if ! hash tar 2>/dev/null; then
-  lsoft_dispErr The tar app is required.
+  inst_dispErr The tar app is required.
   exit 1
 fi
 
 #Create base dir
-mkdir -p ${LSOFT_BASE} 2>/dev/null
-if [ ! -d ${LSOFT_BASE} ]; then
-  lsoft_dispErr Unable to create deploy directory
+mkdir -p ${LSOFT_TOOLBAG_BASE} 2>/dev/null
+if [ ! -d ${LSOFT_TOOLBAG_BASE} ]; then
+  inst_dispErr Unable to create deploy directory
+  exit 2
+fi
+
+#Create etc dir
+mkdir -p /etc/linearsoft 2>/dev/null
+if [ ! -d /etc/linearsoft ]; then
+  inst_dispErr Unable to create etc/config directory
   exit 2
 fi
 
@@ -36,23 +51,23 @@ fi
 rm -rf ${LSOFT_TMP_DIR} 2>/dev/null
 mkdir ${LSOFT_TMP_DIR} 2>/dev/null
 if [ ! -d ${LSOFT_TMP_DIR} ]; then
-  lsoft_dispErr Unable to create temporary directory
+  inst_dispErr Unable to create temporary directory
   exit 2
 fi
 
 wget https://api.github.com/repos/LinearSoft/linux-toolbag/tarball/master -O ${LSOFT_DEPLOY_TAR} >/dev/null
 if [ $? -ne 0 ]; then
-  lsoft_dispErr Unable to download distribution file
+  inst_dispErr Unable to download distribution file
   exit 2
 fi
 
 tar -xzf ${LSOFT_DEPLOY_TAR} -C ${LSOFT_TMP_DIR}/
 if [ $? -ne 0 ]; then
-  lsoft_dispErr Unable to extract distribution file
+  inst_dispErr Unable to extract distribution file
   exit 2
 fi
 
-rm -rf ${LSOFT_BASE}/*
-cp -r ${LSOFT_TMP_DIR}/LinearSoft-linux-toolbag*/* ${LSOFT_BASE}/
+rm -rf ${LSOFT_TOOLBAG_BASE}/*
+cp -r ${LSOFT_TMP_DIR}/LinearSoft-linux-toolbag*/* ${LSOFT_TOOLBAG_BASE}/
 rm -rf ${LSOFT_TMP_DIR}
-. ${LSOFT_BASE}/package/postUpdate.sh
+source ${LSOFT_TOOLBAG_BASE}/package/postUpdate.sh

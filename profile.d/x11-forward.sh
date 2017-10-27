@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #Automatically set display var
 if [ "$PS1" ]; then
   LSOFT_SSHCLIENT=`who -m | awk '{ gsub(/[\(\)]/,"",$5); print $5;}'`

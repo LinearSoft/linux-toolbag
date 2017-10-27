@@ -1,6 +1,9 @@
-LSOFT_BASE=/opt/linearsoft/toolbag
+#!/usr/bin/env bash
+if [ ! -f /etc/linearsoft/toolbag.conf ]; then
+  return 1
+fi
 
-. ${LSOFT_BASE}/profile.d/bash-ls.sh
-. ${LSOFT_BASE}/profile.d/bash-nano.sh
-. ${LSOFT_BASE}/profile.d/putty-displayFix.sh
-. ${LSOFT_BASE}/profile.d/x11-forward.sh
+source ${LSOFT_TOOLBAG_BASE}/profile.d/bash-ls.sh
+source ${LSOFT_TOOLBAG_BASE}/profile.d/bash-nano.sh
+source ${LSOFT_TOOLBAG_BASE}/profile.d/putty-displayFix.sh
+source ${LSOFT_TOOLBAG_BASE}/profile.d/x11-forward.sh

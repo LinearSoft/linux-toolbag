@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 if [ "$PS1" ]; then
   #For ROOT user only
   if [ "$EUID" = "0" ]; then

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 lsoft_echoStd () {
   echo "$@"
 }
@@ -14,7 +15,7 @@ lsoft_echoBoth () {
 lsoft_dispErr () {
   msg="$@"
   formated="===ERROR\n${msg}\n==="
-  if [ "$PS1" ]; then
+  if [[ $- == *i* ]]; then
     echo -e "$formated" 1>&2
   else
     echo -e "$formated"
