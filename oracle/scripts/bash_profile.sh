@@ -28,10 +28,6 @@ export PATH TMP TMPDIR SQLPATH NLS_DATE_FORMAT
 # ---------------------------------------------------
 # Oracle System Level Settings
 # ---------------------------------------------------
-
-ORG_LD_LIB="${LD_LIBRARY_PATH}"
-ORG_CLASSPATH="${CLASSPATH}"
-
 if [ "$EUID" -ne 0 ]; then
   THREADS_FLAG=native
   export THREADS_FLAG
@@ -40,6 +36,8 @@ if [ "$EUID" -ne 0 ]; then
     LD_LIBRARY_PATH=/lib64:/lib:/usr/lib64:/usr/lib:/usr/local/lib64:/usr/local/lib
     export LD_LIBRARY_PATH
   fi
+
+  umask 022
 fi
 
 
@@ -54,19 +52,3 @@ if [ "${CURRENT_USER}" = "${LSOFT_ORACLE_USER_GRID}" ] || [ "$EUID" -eq 0 ]; the
 fi
 
 source ${LSOFT_TOOLBAG_BASE}/oracle/bin/chdb.sh ${INIT_DB}
-
-if [ "$EUID" -eq 0 ]; then
-  if [ -z "${ORG_LD_LIB}" ]; then
-    unset LD_LIBRARY_PATH
-  else
-    LD_LIBRARY_PATH="${ORG_LD_LIB}"
-    export LD_LIBRARY_PATH
-  fi
-
-  if [ -z "${ORG_CLASSPATH}" ]; then
-    unset CLASSPATH
-  else
-    CLASSPATH="${ORG_CLASSPATH}"
-    export CLASSPATH
-  fi
-fi

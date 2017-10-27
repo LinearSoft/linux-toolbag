@@ -4,7 +4,7 @@ LSOFT_ETC_BASE=/etc/linearsoft
 LSOFT_TOOLBAG_BASE=/opt/linearsoft/toolbag
 
 if [ -f /etc/linearsoft/toolbag.conf ]; then
-  . /etc/linearsoft/toolbag.conf
+  source /etc/linearsoft/toolbag.conf
 fi
 
 
