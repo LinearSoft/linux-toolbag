@@ -1,0 +1,15 @@
+[Unit]
+Description=The Oracle Enterprise Manager Agent
+After=syslog.target network.target oradb@.service oraem.service
+
+[Service]
+Type=forking
+GuessMainPID=yes
+TimeoutSec=1800
+User=__USER__
+Group=__GROUP__
+ExecStart=__BASE__/oracle/systemd/agentstart.sh
+ExecStop=__BASE__/oracle/systemd/agentshut.sh
+
+[Install]
+WantedBy=multi-user.target

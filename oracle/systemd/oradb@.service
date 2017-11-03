@@ -1,0 +1,21 @@
+[Unit]
+Description=Oracle Database SID %I
+Requires=oralsnr@.service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+GuessMainPID=no
+PIDFile=__PIDDIR__/oradb-%i.pid
+TimeoutStartSec=1800
+TimeoutStopSec=3600
+User=__USER__
+Group=__GROUP__
+PermissionsStartOnly=true
+ExecStartPre=-__BASE__/oracle/systemd/mkrundir.sh
+
+ExecStart=__BASE__/oracle/systemd/dbstart.sh %i
+ExecStop=__BASE__/oracle/systemd/dbshut.sh %i
+
+[Install]
+WantedBy=multi-user.target

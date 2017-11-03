@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-LSOFT_ETC_BASE=/etc/linearsoft
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
+
+LSOFT_ETC_BASE=/etc/linearsoft
 LSOFT_TOOLBAG_BASE=/opt/linearsoft/toolbag
 
 if [ -f /etc/linearsoft/toolbag.conf ]; then

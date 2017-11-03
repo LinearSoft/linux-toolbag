@@ -1,0 +1,16 @@
+[Unit]
+Description=The Oracle Enterprise Manager Cloud Control
+Requires=oradb@__OEMSID__.service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+GuessMainPID=yes
+TimeoutSec=1800
+User=__USER__
+Group=__GROUP__
+ExecStart=__BASE__/oracle/systemd/emstart.sh
+ExecStop=__BASE__/oracle/systemd/emshut.sh
+
+[Install]
+WantedBy=multi-user.target

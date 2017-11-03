@@ -1,0 +1,15 @@
+[Unit]
+Description=The Oracle Database Listener
+After=syslog.target network.target
+
+[Service]
+Type=forking
+GuessMainPID=yes
+TimeoutSec=900
+User=__USER__
+Group=__GROUP__
+ExecStart=__BASE__/oracle/systemd/lnstart.sh %i
+ExecStop=__BASE__/oracle/systemd/lnshut.sh %i
+
+[Install]
+WantedBy=multi-user.target
