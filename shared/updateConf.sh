@@ -14,10 +14,9 @@ fi
 
 
 #Add missing vars to destination conf
-while read line
-do
+sed '/^[ \t]*$/d' ${SRC_CONF} | while read line; do
   name=$(echo ${line} | cut -d'=' -f1)
   if ! grep -q ${name} ${DST_CONF}; then
     echo "${line}" >> ${DST_CONF}
   fi
-done < ${SRC_CONF}
+done
