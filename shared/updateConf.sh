@@ -2,16 +2,8 @@
 SRC_CONF=$1
 DST_CONF=$2
 
-if [ ! -f /etc/linearsoft/toolbag.conf ]; then
-  echo "Unable to located toolbag.conf"
-  exit 1
-fi
-
-source /etc/linearsoft/toolbag.conf
-source ${LSOFT_TOOLBAG_BASE}/shared/funcs.sh
-
 if [ ! -f ${SRC_CONF} ]; then
-  lsoft_dispErr "Unable to find source config file ${SRC_CONF}"
+  echo "Unable to find source config file ${SRC_CONF}"
   exit 1
 fi
 
