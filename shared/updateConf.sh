@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 SRC_CONF=$1
-DST_CONF=$2
+ORG_CONF=$2
 
 if [ ! -f ${SRC_CONF} ]; then
   echo "Unable to find source config file ${SRC_CONF}"
   exit 1
 fi
 
-if [ ! -f ${DST_CONF} ]; then
-  cat ${SRC_CONF} > ${DST_CONF}
+if [ ! -f ${ORG_CONF} ]; then
+  cat ${SRC_CONF} > ${ORG_CONF}
   exit 0
 fi
 
@@ -24,20 +24,20 @@ function cleanup {
 trap cleanup EXIT
 
 #Generate tmp CONF
-FILE_NAME=`basename "${DST_CONF}"`
+FILE_NAME=`basename "${ORG_CONF}"`
 TMP_CONF=${WORK_DIR}/${FILE_NAME}
 cp ${SRC_CONF} ${TMP_CONF}
 
 
 
 #Update tmp conf with existing settings
-egrep '^[ ^I]*LSOFT_[^ ^I=]+=[^=]+$' ${SRC_CONF} | sed 's/^[ \t]*//g' | sed 's/[ \t]*$//g'  | while read line; do
+egrep '^[ ^I]*LSOFT_[^ ^I=]+=[^=]+$' ${ORG_CONF} | sed 's/^[ \t]*//g' | sed 's/[ \t]*$//g'  | while read line; do
   name=$(echo ${line} | cut -d'=' -f1)
   val=$(echo ${line} | cut -d'=' -f2)
   valfix=`echo "${val}" | sed -e 's/[\/&]/\\&/g'`
   sed -i "s/${name}=.*/${name}=${valfix}/g" ${TMP_CONF}
 done
 
-cat ${TMP_CONF} > ${DST_CONF}
+cat ${TMP_CONF} > ${ORG_CONF}
 
 exit 0
