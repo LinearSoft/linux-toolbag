@@ -34,7 +34,7 @@ cp ${SRC_CONF} ${TMP_CONF}
 egrep '^[ ^I]*LSOFT_[^ ^I=]+=[^=]+$' ${ORG_CONF} | sed 's/^[ \t]*//g' | sed 's/[ \t]*$//g'  | while read line; do
   name=$(echo ${line} | cut -d'=' -f1)
   val=$(echo ${line} | cut -d'=' -f2)
-  valfix=`echo "${val}" | sed -e 's/[\/&]/\\&/g'`
+  valfix=`echo "${val}" | sed -e 's/\([\/&]\)/\\\\\1/g'` #Extra back slashes for back ticks
   sed -i "s/${name}=.*/${name}=${valfix}/g" ${TMP_CONF}
 done
 
