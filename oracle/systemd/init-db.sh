@@ -33,4 +33,4 @@ if [ ! -x "$ORACLE_HOME/bin/sqlplus" ]; then
   echo "Invalid Oracle Home: $ORACLE_HOME"
   exit 1
 fi
-export ORACLE_SID RACLE_HOME
+export ORACLE_SID ORACLE_HOME
