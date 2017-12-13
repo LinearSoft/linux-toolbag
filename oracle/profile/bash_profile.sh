@@ -52,3 +52,15 @@ if [ "${CURRENT_USER}" = "${LSOFT_ORACLE_USER_GRID}" ] || [ "$EUID" -eq 0 ]; the
 fi
 
 source ${LSOFT_TOOLBAG_BASE}/oracle/bin/changedb.sh ${INIT_DB}
+
+
+# ---------------------------------------------------
+# Oracle Enterprise Manager Settings
+# ---------------------------------------------------
+shopt -s nocasematch
+case "${LSOFT_ORACLE_EM}" in
+ "yes" )
+      export OMS_HOME=${ORACLE_BASE}/middleware/oms
+      ;;
+ *)   ;;
+esac

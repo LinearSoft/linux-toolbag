@@ -1,6 +1,6 @@
 [Unit]
 Description=Oracle Database SID %I
-Requires=oralsnr@.service
+Requires=oralsnr@__ORADEFDB__.service
 After=syslog.target network.target
 
 [Service]

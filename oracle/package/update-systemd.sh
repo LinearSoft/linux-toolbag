@@ -12,6 +12,7 @@ Service=( oradb\@.service oralsnr\@.service oraem.service oraagent.service )
 User=( ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_EM} ${LSOFT_ORACLE_USER_AGENT} )
 Group=( ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_EM} ${LSOFT_ORACLE_GROUP_AGENT} )
 
+sed -i "s@__ORADEFDB__@${LSOFT_ORACLE_DEFAULT_DB_ORACLE}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/oradb@.service
 sed -i "s@__OEMSID__@${LSOFT_ORACLE_DB_EM}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/oraem.service
 
 for index in 0 1 2 3; do
