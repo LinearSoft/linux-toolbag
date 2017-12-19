@@ -10,9 +10,6 @@
 # Note:
 # Use ORACLE_TRACE=T for tracing this script.
 #
-# On all UNIX platforms except SOLARIS
-# ORATAB=/etc/oratab
-#
 #####################################
 
 if [ ! -f /etc/linearsoft/toolbag.conf ]; then
