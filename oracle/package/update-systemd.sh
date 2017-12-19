@@ -8,9 +8,9 @@ done
 sed -i "s@__USER__@${LSOFT_ORACLE_USER_ORACLE}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/mkrundir.sh
 sed -i "s@__GROUP__@${LSOFT_ORACLE_GROUP_ORACLE}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/mkrundir.sh
 
-Service=( oradb\@.service oralsnr\@.service oraem.service oraagent.service )
-User=( ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_EM} ${LSOFT_ORACLE_USER_AGENT} )
-Group=( ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_EM} ${LSOFT_ORACLE_GROUP_AGENT} )
+Service=( oradb\@.service oralsnr\@.service orashutdown.service oraem.service oraagent.service )
+User=( ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_ORACLE} ${LSOFT_ORACLE_USER_EM} ${LSOFT_ORACLE_USER_AGENT} )
+Group=( ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_ORACLE} ${LSOFT_ORACLE_GROUP_EM} ${LSOFT_ORACLE_GROUP_AGENT} )
 
 sed -i "s@__ORADEFDB__@${LSOFT_ORACLE_DEFAULT_DB_ORACLE}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/oradb@.service
 sed -i "s@__OEMSID__@${LSOFT_ORACLE_DB_EM}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/oraem.service
