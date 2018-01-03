@@ -16,7 +16,7 @@ sed -i "s@__ORADEFDB__@${LSOFT_ORACLE_DEFAULT_DB_ORACLE}@g" ${LSOFT_TOOLBAG_BASE
 sed -i "s@__ORADEFDB__@${LSOFT_ORACLE_DEFAULT_DB_ORACLE}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/orashutdown.service
 sed -i "s@__OEMSID__@${LSOFT_ORACLE_DB_EM}@g" ${LSOFT_TOOLBAG_BASE}/oracle/systemd/oraem.service
 
-for index in 0 1 2 3; do
+for index in 0 1 2 3 4; do
     SERVICE=${Service[index]}
     USER=${User[index]}
     GROUP=${Group[index]}

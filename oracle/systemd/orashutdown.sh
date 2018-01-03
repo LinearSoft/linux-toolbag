@@ -6,7 +6,7 @@
 ###
 ###################################
 #
-# usage: orakill $LISTENER_DB_SID
+# usage: orashutdown $LISTENER_DB_SID
 #
 # Note:
 # Use ORACLE_TRACE=T for tracing this script.
