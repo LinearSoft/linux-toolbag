@@ -62,8 +62,8 @@ case "${LSOFT_ORACLE_EM}" in
  "yes" )
       export OMS_HOME=${ORACLE_BASE}/middleware/oms
       #Aliases defined here instead of bashrc because ORACLE_BASE not avail in bashrc
-      alias emctl="${ORACLE_BASE}/middleware/oms/bin/emctl"
-      alias emcli="${ORACLE_BASE}/middleware/oms/bin/emcli"
+      alias emctl="${ORACLE_BASE}/middleware/bin/emctl"
+      alias emcli="${ORACLE_BASE}/middleware/bin/emcli"
       ;;
  *)   ;;
 esac
