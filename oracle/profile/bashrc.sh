@@ -8,14 +8,3 @@ source /etc/linearsoft/oracle.conf
 
 alias chdb=". ${LSOFT_TOOLBAG_BASE}/oracle/bin/changedb.sh"
 
-# ---------------------------------------------------
-# Oracle Enterprise Manager Settings
-# ---------------------------------------------------
-shopt -s nocasematch
-case "${LSOFT_ORACLE_EM}" in
- "yes" )
-      alias emctl="${ORACLE_BASE}/middleware/oms/bin/emctl"
-      alias emcli="${ORACLE_BASE}/middleware/oms/bin/emcli"
-      ;;
- *)   ;;
-esac
