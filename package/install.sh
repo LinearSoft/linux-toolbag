@@ -25,6 +25,11 @@ inst_dispErr () {
 }
 
 #Check for req apps
+if ! hash curl 2>/dev/null; then
+  inst_dispErr The curl app is required.
+  exit 1
+fi
+
 if ! hash wget 2>/dev/null; then
   inst_dispErr The wget app is required.
   exit 1
@@ -57,7 +62,8 @@ if [ ! -d ${LSOFT_TMP_DIR} ]; then
   exit 2
 fi
 
-wget https://api.github.com/repos/LinearSoft/linux-toolbag/tarball/master -O ${LSOFT_DEPLOY_TAR} >/dev/null
+curl -s https://api.github.com/repos/LinearSoft/linux-toolbag/releases/latest | grep tarball_url | cut -d '"' -f 4 \
+| wget -q -O ${LSOFT_DEPLOY_TAR} -i - >/dev/null
 if [ $? -ne 0 ]; then
   inst_dispErr Unable to download distribution file
   exit 2
