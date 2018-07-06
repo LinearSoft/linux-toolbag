@@ -41,7 +41,7 @@ lsoft_stampStop () {
 
 lsoft_rootCheck () {
   if [ "$(id -u)" != "0" ]; then
-      wcit_echoErr "This script must be run by root"
+      lsoft_echoErr "This script must be run by root"
       exit 1
   fi
 }
